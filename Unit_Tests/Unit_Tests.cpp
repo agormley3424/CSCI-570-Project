@@ -99,5 +99,75 @@ namespace UnitTests
 			string expectedResult = "TATTATACGCTATTATACGCGACGCGGACGCG";
 			Assert::AreEqual(0, testResult.compare(expectedResult));
 		}
+
+		TEST_METHOD(input1Value)
+		{
+			string s1 = "ACTG";
+			string s2 = "TACG";
+			vector<int> v1 = { 3, 6, 1, 1 };
+			vector<int> v2 = { 1, 2, 9, 2 };
+
+			s1 = IS.vectorConvert(s1, v1);
+			s2 = IS.vectorConvert(s2, v2);
+
+			int expectedValue = 1296;
+			Assert::AreEqual(expectedValue, BS->solve(s1, s2));
+		}
+
+		TEST_METHOD(input2Value)
+		{
+			string s1 = "ACTG";
+			string s2 = "TACG";
+			vector<int> v1 = { 3, 6, 1, 1 };
+			vector<int> v2 = { 1, 2, 0 };
+
+			s1 = IS.vectorConvert(s1, v1);
+			s2 = IS.vectorConvert(s2, v2);
+
+			int expectedValue = 1128;
+			Assert::AreEqual(expectedValue, BS->solve(s1, s2));
+		}
+
+		TEST_METHOD(input3Value)
+		{
+			string s1 = "AGTC";
+			string s2 = "TACG";
+			vector<int> v1 = { 0, 0, 0, 0, 0 };
+			vector<int> v2 = { 1, 1, 1, 1, 1 };
+
+			s1 = IS.vectorConvert(s1, v1);
+			s2 = IS.vectorConvert(s2, v2);
+
+			int expectedValue = 1980;
+			Assert::AreEqual(expectedValue, BS->solve(s1, s2));
+		}
+
+		TEST_METHOD(input4Value)
+		{
+			string s1 = "TCGA";
+			string s2 = "TCGA";
+			vector<int> v1 = { 3, 7, 15, 31, 62};
+			vector<int> v2 = { 3, 7, 15, 31, 63 };
+
+			s1 = IS.vectorConvert(s1, v1);
+			s2 = IS.vectorConvert(s2, v2);
+
+			int expectedValue = 60;
+			Assert::AreEqual(expectedValue, BS->solve(s1, s2));
+		}
+
+		TEST_METHOD(input5Value)
+		{
+			string s1 = "ACGT";
+			string s2 = "TACG";
+			vector<int> v1 = { 3, 6, 1, 1, 5, 6, 7, 8, 9, 20 };
+			vector<int> v2 = { 1, 2, 0, 4, 3, 2, 0, 5, 6, 17 };
+
+			s1 = IS.vectorConvert(s1, v1);
+			s2 = IS.vectorConvert(s2, v2);
+
+			int expectedValue = 63996;
+			Assert::AreEqual(expectedValue, BS->solve(s1, s2));
+		}
 	};
 }
