@@ -11,6 +11,8 @@ using namespace std;
  //Constructs the solver with an external alpha table and delta value
 BasicSolver::BasicSolver(AlphaTable* ATABLE, int DELTA)
 {
+    //Solver();
+
 	alphaTable = ATABLE;
 	delta = DELTA;
 }

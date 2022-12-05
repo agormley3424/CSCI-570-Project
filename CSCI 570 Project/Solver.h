@@ -12,25 +12,24 @@ class Solver
 {
 public:
 
-	virtual int solve(string a, string b);
-	Solver(AlphaTable* ATABLE, int DELTA);
-	Solver();
-	virtual ~Solver();
-	virtual void resetMemos();
-	virtual void resetAlpha(AlphaTable* ATABLE);
-	virtual void resetDelta(int DELTA);
-	virtual void resetAll(AlphaTable* ATABLE, int DELTA);
+	virtual int solve(string& a, string& b)= 0;
+	//Solver(AlphaTable* ATABLE, int DELTA) {}= 0;
+	Solver() {};
+	virtual ~Solver() {};
+	virtual void resetMemos()= 0;
+	virtual void resetAlpha(AlphaTable* ATABLE)= 0;
+	virtual void resetDelta(int DELTA)= 0;
+	virtual void resetAll(AlphaTable* ATABLE, int DELTA)= 0;
 
-private:
+protected:
 	
-	virtual void fillMemos(string& a, string& b);
-	virtual int memoize(unsigned int i, unsigned int j, string& a, string& b);
-	//virtual int alpha(char a, char b);
+	virtual int memoize(unsigned int i, unsigned int j, string& a, string& b)= 0;
+	//virtual int alpha(char a, char b)= 0;
 	AlphaTable* alphaTable;
 
 	vector<vector<int>> memos;
-	//unordered_map<pair<unsigned int, unsigned int>, int> memos;
-	//unordered_map<pair<char, char>, int>* alphaTable;
+	//unordered_map<pair<unsigned int, unsigned int>, int> memos= 0;
+	//unordered_map<pair<char, char>, int>* alphaTable= 0;
 };
 
 #endif

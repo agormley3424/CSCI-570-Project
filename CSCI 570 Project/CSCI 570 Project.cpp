@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include "Solver.h"
+#include "BasicSolver.h"
 #include "AlphaTable.h"
 
 using namespace std;
@@ -20,7 +21,7 @@ int main(int argc, char* argv[])
 
     int DELTA = 30;
 
-    //Solver* BS = new BasicSolver(&ALPHATABLE, DELTA);
+    Solver* BS = new BasicSolver(&ALPHA, DELTA);
     //Solver* SS = new SmartSolver(&ALPHATABLE, DELTA);
 
     //BS->solve(s1, s2);

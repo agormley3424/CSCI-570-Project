@@ -9,19 +9,20 @@
 
 using namespace std;
 
-class BasicSolver
+class BasicSolver : public Solver
 {
 public:
 
 	virtual int solve(string& a, string& b);
 	BasicSolver(AlphaTable* ATABLE, int DELTA);
-	BasicSolver() = delete;
+	//BasicSolver();
+	virtual ~BasicSolver() {};
 	virtual void resetMemos();
 	virtual void resetAlpha(AlphaTable* ATABLE);
 	virtual void resetDelta(int DELTA);
 	virtual void resetAll(AlphaTable* ATABLE, int DELTA);
 
-private:
+protected:
 
 	virtual int memoize(unsigned int i, unsigned int j, string& a, string& b);
 	//virtual int alpha(unsigned char a, unsigned char b);
