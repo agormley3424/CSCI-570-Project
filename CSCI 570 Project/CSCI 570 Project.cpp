@@ -5,24 +5,26 @@
 #include <string>
 #include <unordered_map>
 #include "Solver.h"
+#include "AlphaTable.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
 
-    /* Insert command line procssing code here */
+    /* Insert input procssing code here */
 
     string s1;
     string s2;
-    unordered_map<pair<char, char>, int> ALPHATABLE;
-    int DELTA;
+    AlphaTable ALPHA;
 
-    Solver* BS = new Solver(&ALPHATABLE, DELTA);
-    Solver* SS = new Solver(&ALPHATABLE, DELTA);
+    int DELTA = 30;
 
-    BS->solve(s1, s2);
-    SS->solve(s1, s2);
+    //Solver* BS = new BasicSolver(&ALPHATABLE, DELTA);
+    //Solver* SS = new SmartSolver(&ALPHATABLE, DELTA);
+
+    //BS->solve(s1, s2);
+    //SS->solve(s1, s2);
 
     /* Insert output processing code here */
 }
