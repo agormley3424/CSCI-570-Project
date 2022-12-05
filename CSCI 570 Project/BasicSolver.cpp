@@ -69,31 +69,31 @@ int BasicSolver::solve(string& s1, string& s2)
     // Else
 
 
-    unsigned int rows = s1.size();
-    unsigned int cols = s2.size();
+    int rows = s1.size() - 1;
+    int cols = s2.size() - 1;
 
-    // Initialize base cases (0th column)
-    for (int i = 0; i < s1.size(); ++i) {
-        memos[i][0] = i * delta;
-    }
+    //// Initialize base cases (0th column)
+    //for (int i = 0; i < s1.size(); ++i) {
+    //    memos[i][0] = i * delta;
+    //}
 
-    // Initialize base cases (0th row)
-    for (int i = 0; i < s2.size(); ++i) {
-        memos[0][i] = i * delta;
-    }
+    //// Initialize base cases (0th row)
+    //for (int i = 0; i < s2.size(); ++i) {
+    //    memos[0][i] = i * delta;
+    //}
 
 
-    // Fill in cache array column by column from the 1st column
-    for (unsigned int i = 1; i < cols; ++i) {
-        for (unsigned int j = 1; j < rows; ++j) {
+    // Fill in cache array column by column from the 0th row
+    for (int i = 0; i <= rows; ++i) {
+        for (int j = 0; j <= cols; ++j) {
             memoize(i, j, s1, s2);
         }
     }
 
     //unordered_map<pair<char, char>, int>& alphaProxy = *alphaTable;
 
-    --rows;
-    --cols;
+    //--rows;
+    //--cols;
 
     // The numeric cost of the alignment
     int alignmentCost = memoize(rows, cols, s1, s2);
@@ -112,18 +112,25 @@ int BasicSolver::solve(string& s1, string& s2)
         {
             s1Alignment.push_back(s1[rows]);
             s2Alignment.push_back(s2[cols]);
+
+            --rows;
+            --cols;
         }
         // Character from s1 isn't matched
         else if (memoVal == delta + memoize(rows - 1, cols, s1, s2))
         {
             s1Alignment.push_back('_');
             s2Alignment.push_back(s2[cols]);
+
+            --rows;
         }
         // Character from s2 isn't matched
         else if (memoVal == delta + memoize(rows, cols - 1, s1, s2))
         {
             s1Alignment.push_back(s1[rows]);
             s2Alignment.push_back('_');
+
+            --cols;
         }
         // Something has gone wrong
         else
@@ -140,10 +147,20 @@ int BasicSolver::solve(string& s1, string& s2)
 
  //Returns the alignment value between strings s1 and s2, including indices i and j respectively
  //If this alignment hasn't been found yet, it will be recursively calculated
-int BasicSolver::memoize(unsigned int i, unsigned int j, string& s1, string& s2)
+int BasicSolver::memoize(int i, int j, string& s1, string& s2)
 {
+    // Comparing nothing to the second string (Base case column edges)
+    if (i == -1)
+    {
+        return delta * (j + 1);
+    }
+    // Comparing nothing to the first string (Base case row edges)
+    else if (j == -1)
+    {
+        return delta * (i + 1);
+    }
 	// If indices are already cached, return the cached value
-    if (memos[i][j] != -1)
+    else if (memos[i][j] != -1)
     {
         return memos[i][j];
     }

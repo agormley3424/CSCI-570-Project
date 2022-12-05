@@ -23,7 +23,7 @@ public:
 
 protected:
 	
-	virtual int memoize(unsigned int i, unsigned int j, string& a, string& b)= 0;
+	virtual int memoize(int i, int j, string& a, string& b)= 0;
 	//virtual int alpha(char a, char b)= 0;
 	AlphaTable* alphaTable;
 

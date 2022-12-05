@@ -27,5 +27,7 @@ int main(int argc, char* argv[])
     //BS->solve(s1, s2);
     //SS->solve(s1, s2);
 
+    delete BS;
+
     /* Insert output processing code here */
 }

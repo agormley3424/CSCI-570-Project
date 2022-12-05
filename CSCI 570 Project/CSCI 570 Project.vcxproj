@@ -130,10 +130,12 @@
     <ClCompile Include="AlphaTable.cpp" />
     <ClCompile Include="BasicSolver.cpp" />
     <ClCompile Include="CSCI 570 Project.cpp" />
+    <ClCompile Include="InputConverter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlphaTable.h" />
     <ClInclude Include="BasicSolver.h" />
+    <ClInclude Include="InputConverter.h" />
     <ClInclude Include="Solver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

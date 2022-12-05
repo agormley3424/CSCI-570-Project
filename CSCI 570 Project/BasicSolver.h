@@ -24,7 +24,7 @@ public:
 
 protected:
 
-	virtual int memoize(unsigned int i, unsigned int j, string& a, string& b);
+	virtual int memoize(int i, int j, string& a, string& b);
 	//virtual int alpha(unsigned char a, unsigned char b);
 
 	//unordered_map<int, unordered_map<int, int>> memos;
