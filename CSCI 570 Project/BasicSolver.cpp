@@ -55,7 +55,7 @@ void BasicSolver::resetAll(AlphaTable* ATABLE, int DELTA)
 	delta = DELTA;
 }
 
- //Returns the maximum alignment cost between strings s1 and s2
+ //Returns the minimum alignment cost between strings s1 and s2
 int BasicSolver::solve(string& s1, string& s2)
 {
     // Create memos table with rows for s1 and columns for s2
@@ -140,6 +140,117 @@ int BasicSolver::solve(string& s1, string& s2)
     }
 
     return alignmentCost;
+}
+
+//Returns the minimum alignment cost strings s1 and s2
+pair<string, string> BasicSolver::solveStrings(string& s1, string& s2)
+{
+    // Create memos table with rows for s1 and columns for s2
+    memos = vector<vector<int>>(s1.size(), vector<int>(s2.size(), -1));
+
+    // If trying to solve without a known alpha table, return
+    if (alphaTable == nullptr)
+    {
+        return { "", "" };
+    }
+    // Else
+
+
+    int rows = s1.size() - 1;
+    int cols = s2.size() - 1;
+
+    //// Initialize base cases (0th column)
+    //for (int i = 0; i < s1.size(); ++i) {
+    //    memos[i][0] = i * delta;
+    //}
+
+    //// Initialize base cases (0th row)
+    //for (int i = 0; i < s2.size(); ++i) {
+    //    memos[0][i] = i * delta;
+    //}
+
+
+    // Fill in cache array column by column from the 0th row
+    for (int i = 0; i <= rows; ++i) {
+        for (int j = 0; j <= cols; ++j) {
+            memoize(i, j, s1, s2);
+        }
+    }
+
+    //unordered_map<pair<char, char>, int>& alphaProxy = *alphaTable;
+
+    //--rows;
+    //--cols;
+
+    // The numeric cost of the alignment
+    int alignmentCost = memoize(rows, cols, s1, s2);
+
+    string s1Alignment;
+    string s2Alignment;
+
+    /* I think I need to remind myself how alignments are actually output... */
+
+    // Traverse memo to find output string
+    while (rows >= 0 && cols >= 0) {
+        int memoVal = memoize(rows, cols, s1, s2);
+
+        // Both characters are matched
+        if (memoVal == alphaTable->getVal(s1[rows], s2[cols]) + memoize(rows - 1, cols - 1, s1, s2))
+        {
+            s1Alignment.push_back(s1[rows]);
+            s2Alignment.push_back(s2[cols]);
+
+            --rows;
+            --cols;
+        }
+        // Character from s1 isn't matched
+        else if (memoVal == delta + memoize(rows - 1, cols, s1, s2))
+        {
+            s1Alignment.push_back('_');
+            s2Alignment.push_back(s2[cols]);
+
+            --rows;
+            //--cols;
+        }
+        // Character from s2 isn't matched
+        else if (memoVal == delta + memoize(rows, cols - 1, s1, s2))
+        {
+            s1Alignment.push_back(s1[rows]);
+            s2Alignment.push_back('_');
+
+            --cols;
+            //--rows;
+        }
+        // Something has gone wrong
+        else
+        {
+            throw "BasicSolver Error: Solve() Line 99: Illegal value found during memo backtracing\n";
+        }
+    }
+
+    // Travel through s2's remaining values 
+    if (rows != -1 || cols != -1)
+    {
+        // Travel through s2's remaining values
+        while (cols >= 0)
+        {
+            s1Alignment.push_back('_');
+            s2Alignment.push_back(s2[cols]);
+
+            --cols;
+        }
+
+        // Travel through s1's remaining values
+        while (rows >= 0)
+        {
+            s1Alignment.push_back(s1[rows]);
+            s2Alignment.push_back('_');
+
+            --rows;
+        }
+    }
+
+    return { s1Alignment, s2Alignment };
 }
 
 ///////////////////////  Private Functions  ///////////////////////////

@@ -13,6 +13,7 @@ class Solver
 public:
 
 	virtual int solve(string& a, string& b)= 0;
+	virtual pair<string, string> solveStrings(string& a, string& b) = 0;
 	//Solver(AlphaTable* ATABLE, int DELTA) {}= 0;
 	Solver() {};
 	virtual ~Solver() {};

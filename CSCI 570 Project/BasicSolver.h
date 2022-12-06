@@ -14,6 +14,7 @@ class BasicSolver : public Solver
 public:
 
 	virtual int solve(string& a, string& b);
+	virtual pair<string, string> solveStrings(string& a, string& b);
 	BasicSolver(AlphaTable* ATABLE, int DELTA);
 	//BasicSolver();
 	virtual ~BasicSolver() {};

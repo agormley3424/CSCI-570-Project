@@ -169,5 +169,41 @@ namespace UnitTests
 			int expectedValue = 63996;
 			Assert::AreEqual(expectedValue, BS->solve(s1, s2));
 		}
+
+		TEST_METHOD(input1Strings)
+		{
+			string s1 = "ACTG";
+			string s2 = "TACG";
+			vector<int> v1 = { 3, 6, 1, 1 };
+			vector<int> v2 = { 1, 2, 9, 2 };
+
+			s1 = IS.vectorConvert(s1, v1);
+			s2 = IS.vectorConvert(s2, v2);
+
+			pair<string, string> testStrings = BS->solveStrings(s1, s2);
+
+			string expectedString1 = "_A_CA_CACT__G__A_C_TAC_TGACTG_GTGA__C_TACTGACTGGACTGACTACTGACTGGTGACTACT_GACTG_G";
+			string expectedString2 = "TATTATTA_TACGCTATTATACGCGAC_GCG_GACGCGTA_T_AC__G_CT_ATTA_T_AC__GCGAC_GC_GGAC_GCG";
+			Assert::AreEqual(0, testStrings.first.compare(expectedString1));
+			Assert::AreEqual(0, testStrings.second.compare(expectedString2));
+		}
+
+		TEST_METHOD(input0Strings)
+		{
+			string s1 = "A";
+			string s2 = "C";
+			//vector<int> v1 = { 3, 6, 1, 1 };
+			//vector<int> v2 = { 1, 2, 9, 2 };
+
+			//s1 = IS.vectorConvert(s1, v1);
+			//s2 = IS.vectorConvert(s2, v2);
+
+			pair<string, string> testStrings = BS->solveStrings(s1, s2);
+
+			string expectedString1 = "_C__";
+			string expectedString2 = "GCGG";
+			Assert::AreEqual(0, testStrings.first.compare(expectedString1));
+			Assert::AreEqual(0, testStrings.second.compare(expectedString2));
+		}
 	};
 }
